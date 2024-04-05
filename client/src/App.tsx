@@ -1,9 +1,11 @@
-function App() {
+import { AppProvider } from './providers/app';
+import { AppRoutes } from './routes/index';
 
+function App() {
   return (
-    <div>
-      rtk query
-    </div>
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
   );
 }
 

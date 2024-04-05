@@ -11,6 +11,9 @@ const classSchema = new Schema<IClassModel>(
         },
         ...BaseModel
     },
+    {
+        versionKey: false,
+    }
 );
 
 const classModel: Model<IClassModel> = mongoose.model("Class", classSchema);
