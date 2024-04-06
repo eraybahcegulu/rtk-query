@@ -13,7 +13,7 @@ const classesApi = createApi({
         createClass: builder.mutation({
             query: (data) => ({
                 url: `${API_URL}/class`,
-                method: 'PUT',
+                method: 'POST',
                 body: { data },
             }),
             invalidatesTags: (result, error) => error ? [] : [{ type: 'Class' }]
