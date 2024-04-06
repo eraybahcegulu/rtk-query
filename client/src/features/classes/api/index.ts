@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import axios from 'axios';
 import { API_URL } from '../../../config';
 
 const classesApi = createApi({
@@ -12,35 +11,27 @@ const classesApi = createApi({
             providesTags: ['Class']
         }),
         createClass: builder.mutation({
-            async queryFn(text) {
-                return await axios.post(
-                    `${API_URL}/class`,
-                    {
-                        text
-                    }
-                );
-            },
-            invalidatesTags: ['Class']
+            query: (data) => ({
+                url: `${API_URL}/class`,
+                method: 'PUT',
+                body: { data },
+            }),
+            invalidatesTags: (result, error) => error ? [] : [{ type: 'Class' }]
         }),
         updateClass: builder.mutation({
-            async queryFn({ id, text, completed }) {
-                return await axios.put(
-                    `${API_URL}/class/${id}`,
-                    {
-                        text,
-                        completed
-                    }
-                );
-            },
-            invalidatesTags: (result, error, arg) => [{ type: 'Class', id: arg.id }]
+            query: ({ id, className }) => ({
+                url: `/class/${id}`,
+                method: 'PUT',
+                body: { className },
+            }),
+            invalidatesTags: (result, error) => error ? [] : [{ type: 'Class' }]
         }),
         deleteClass: builder.mutation({
-            async queryFn(id) {
-                return await axios.delete(
-                    `${API_URL}/class/${id}`
-                );
-            },
-            invalidatesTags: (result, error, arg) => [{ type: 'Class', id: arg.id }]
+            query: (id) => ({
+                url: `/class/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: (result, error) => error ? [] : [{ type: 'Class' }]
         }),
     }),
 });

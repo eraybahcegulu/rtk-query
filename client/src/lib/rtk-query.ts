@@ -1,7 +1,8 @@
 
-import { isRejectedWithValue } from '@reduxjs/toolkit'
+import { isRejectedWithValue, isFulfilled } from '@reduxjs/toolkit'
 import type { Middleware } from '@reduxjs/toolkit'
 import toast from 'react-hot-toast';
+
 
 interface Payload {
     status: number;
@@ -10,10 +11,13 @@ interface Payload {
     };
 }
 
+interface SuccessPayload {
+    message: string;
+}
+
 export const rtkQueryErrorLogger: Middleware =
     () => (next) => (action) => {
         if (isRejectedWithValue(action)) {
-            console.log(action);
             const payload = action.payload as Payload;
             if (payload && payload.status) {
                 if (payload.status === 401) {
@@ -24,3 +28,14 @@ export const rtkQueryErrorLogger: Middleware =
         }
         return next(action);
     }
+
+export const rtkQuerySuccessLogger: Middleware =
+    () => (next) => (action) => {
+        if (isFulfilled(action)) {
+            const payload = action.payload as SuccessPayload;
+            if (payload.message) {
+                toast.success(payload.message);
+            }
+        }
+        return next(action);
+    };

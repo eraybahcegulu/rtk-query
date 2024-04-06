@@ -1,13 +1,11 @@
-import { useGetClassesQuery } from '../classes/api';
+import GetClasses from "../classes/components/GetClasses"
 
 const HomePage = () => {
-    const { data, isLoading } = useGetClassesQuery({});
 
-    if (!data || isLoading) return <span>loading...</span>
-
-    console.log(data)
     return (
-        <div>HomePage</div>
+        <div className="min-h-screen max-h-screen h-screen">
+            <GetClasses />
+        </div>
     )
 }
 

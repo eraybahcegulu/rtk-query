@@ -1,5 +1,4 @@
 import React from 'react'
-import { NextUIProvider } from '@nextui-org/react'
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -12,11 +11,10 @@ type AppProviderProps = {
 export const AppProvider = ({ children }: AppProviderProps) => {
 
     return (
-        <NextUIProvider>
+
+        <Provider store={store}>
             <Toaster />
-            <Provider store={store}>
-                <Router>{children}</Router>
-            </Provider>
-        </NextUIProvider>
+            <Router>{children}</Router>
+        </Provider>
     )
 }

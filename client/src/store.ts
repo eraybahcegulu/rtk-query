@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import classesApi from './features/classes/api';
-import { rtkQueryErrorLogger } from './lib/rtk-query';
+import { rtkQueryErrorLogger, rtkQuerySuccessLogger } from './lib/rtk-query';
 
 export const store = configureStore({
     reducer: {
@@ -9,5 +9,5 @@ export const store = configureStore({
     },
 
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(classesApi.middleware).concat(rtkQueryErrorLogger),
+        getDefaultMiddleware().concat(classesApi.middleware).concat(rtkQueryErrorLogger, rtkQuerySuccessLogger),
 });
