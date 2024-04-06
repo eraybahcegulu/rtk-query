@@ -1,9 +1,14 @@
 import { useSelector } from "react-redux";
 
+interface RootState {
+    api: {
+        queries: Record<string, { status: string }>;
+        mutations: Record<string, { status: string }>;
+    };
+}
 
 export const useRequestPending = () => {
-
-    const isPending = useSelector((state) => {
+    const isPending = useSelector((state: RootState) => {
         const isSomeQueryPending = Object.values(state.api.queries).some(
             (query) => query.status === 'pending'
         );
@@ -12,5 +17,5 @@ export const useRequestPending = () => {
         );
         return isSomeQueryPending || isSomeMutationPending;
     });
-    return {isPending};
+    return { isPending };
 };
