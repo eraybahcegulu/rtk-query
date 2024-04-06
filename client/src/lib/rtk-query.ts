@@ -4,7 +4,7 @@ import type { Middleware } from '@reduxjs/toolkit'
 import toast from 'react-hot-toast';
 
 
-interface Payload {
+interface ErrorPayload {
     status: number;
     data: {
         message: string;
@@ -18,7 +18,7 @@ interface SuccessPayload {
 export const rtkQueryErrorLogger: Middleware =
     () => (next) => (action) => {
         if (isRejectedWithValue(action)) {
-            const payload = action.payload as Payload;
+            const payload = action.payload as ErrorPayload;
             if (payload && payload.status) {
                 if (payload.status === 401) {
                     localStorage.clear();
