@@ -3,7 +3,17 @@ import { API_URL } from '../../../config';
 
 const classesApi = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: API_URL,
+        prepareHeaders: (headers, { getState }) => {
+            //const token = getState().auth.token;
+            const token = "my token";
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+            return headers;
+        },
+    }),
     tagTypes: ['Class'],
     endpoints: (builder) => ({
         getClasses: builder.query({

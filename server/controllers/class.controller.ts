@@ -50,6 +50,7 @@ export const deleteClass = async (req: Request, res: Response, next: NextFunctio
 
 export const updateClass = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        console.log(req.headers)
         console.log(req.body);
         const exist = await Class.findOne({ _id: req.params.classId })
 
