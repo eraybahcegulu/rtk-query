@@ -1,25 +1,13 @@
-
-import { Button } from 'antd';
 import { useDeleteClassMutation } from '../api';
-import { useRequestPending } from '../../../hooks/useRequestPending';
+import CustomButton from '../../../components/Elements/CustomButton';
 
 const DeleteClass = ({ classId, }: { classId: string }) => {
-    const { isPending } = useRequestPending()
-
     const [deleteClass, { isLoading: isDeleteLoading }] = useDeleteClassMutation();
 
-
-
     return (
-        <Button disabled={isPending} onClick={async () => (await deleteClass(classId))}>
-            {
-                isDeleteLoading
-                    ?
-                    'Deleting'
-                    :
-                    'Delete'
-            }
-        </Button>
+        <CustomButton className='w-[100px]' size='large' isLoading={isDeleteLoading} onClick={async () => (await deleteClass(classId))}>
+            Delete
+        </CustomButton>
     )
 }
 

@@ -1,3 +1,4 @@
+import Spinner from '../../../components/Spinner';
 import { useGetClassesQuery } from '../api';
 import { IGetClasses } from '../types/index ';
 
@@ -31,7 +32,7 @@ const GetClasses = () => {
             {
                 !data || isLoading
                     ?
-                    <span> loading </span>
+                    <Spinner size='large'/>
                     :
                     <Table
                         className='w-[500px] min-h-[200px]'
@@ -42,7 +43,7 @@ const GetClasses = () => {
                             spinning: isFetching
                         }}
                         locale={{
-                            emptyText: !isLoading ? <span>boş </span> : <span>Loading</span>
+                            emptyText: !isLoading ? <span> Empty </span> : <Spinner/>
                         }}
                         rowKey="_id" />
             }

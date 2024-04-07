@@ -4,13 +4,12 @@ import { IClass } from '../types/index '
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as Yup from "yup";
 import { useUpdateClassMutation } from '../api';
-import { Button, Input, Modal } from 'antd';
-import { useRequestPending } from '../../../hooks/useRequestPending';
+import { Input, Modal } from 'antd';
+import CustomButton from '../../../components/Elements/CustomButton';
 
 const UpdateClass = ({ item }: { item: IClass }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [updateClass, { isLoading }] = useUpdateClassMutation();
-    const { isPending } = useRequestPending()
+    const [updateClass, { isLoading: isUpdateLoading }] = useUpdateClassMutation();
 
     const updateClassValidator = Yup.object({
         className: Yup.string().required("Username or Email required to login"),
@@ -30,15 +29,7 @@ const UpdateClass = ({ item }: { item: IClass }) => {
 
     return (
         <>
-            <Button disabled={isPending} onClick={showModal}>
-                {
-                    isLoading
-                        ?
-                        'Updating'
-                        :
-                        'Update'
-                }
-            </Button>
+            <CustomButton className='w-[100px]' size='large' onClick={showModal}> Update </CustomButton>
 
             <Modal className='flex justify-center items-center' title="Update Product" open={isModalOpen} onOk={handleOk} footer onCancel={handleCancel}>
                 <Formik
@@ -58,16 +49,9 @@ const UpdateClass = ({ item }: { item: IClass }) => {
                                 </div>
                             </div>
 
-                            <Button htmlType='submit' >
-                                {
-                                    isLoading
-                                        ?
-                                        'Updating'
-                                        :
-                                        'Update'
-                                }
-                            </Button>
-
+                            <CustomButton className='w-[100px]' size='large' htmlType='submit' isLoading={isUpdateLoading} >
+                                Update
+                            </CustomButton>
                         </div>
                     </Form>
                 </Formik>
